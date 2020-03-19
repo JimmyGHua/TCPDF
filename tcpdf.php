@@ -7578,10 +7578,11 @@ class TCPDF {
 			$dest = $dest ? 'D' : 'F';
 		}
 		$dest = strtoupper($dest);
-		if ($dest[0] != 'F') {
-			$name = preg_replace('/[\s]+/', '_', $name);
-			$name = preg_replace('/[^a-zA-Z0-9_\.-]/', '', $name);
-		}
+		// 2020/3/19 更改tcpdf檔名顯示中文
+		//if ($dest[0] != 'F') {
+		//	$name = preg_replace('/[\s]+/', '_', $name);
+		//	$name = preg_replace('/[^a-zA-Z0-9_\.-]/', '', $name);
+		//}
 		if ($this->sign) {
 			// *** apply digital signature to the document ***
 			// get the document content
@@ -7683,7 +7684,8 @@ class TCPDF {
 					header('Content-Type: application/pdf');
 				}
 				// use the Content-Disposition header to supply a recommended filename
-				header('Content-Disposition: attachment; filename="'.basename($name).'"');
+				//header('Content-Disposition: attachment; filename="'.basename($name).'"');
+				header('Content-Disposition: attachment; filename="'.$name.'"');
 				header('Content-Transfer-Encoding: binary');
 				TCPDF_STATIC::sendOutputData($this->getBuffer(), $this->bufferlen);
 				break;
